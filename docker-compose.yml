@@ -1,0 +1,12 @@
+version: '3.9'
+
+services:
+  safevision:
+    build: .
+    container_name: safevision_app
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+    # Se for usar câmera no Linux
+    devices:
+      - "/dev/video0:/dev/video0"
