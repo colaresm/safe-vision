@@ -1,12 +1,20 @@
-version: '3.9'
+version: '3.8'
 
 services:
-  safevision:
-    build: .
-    container_name: safevision_app
+  stream_simulator:
+    build:
+      context: .
+      dockerfile: stream_simulator/Dockerfile
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+    depends_on:
+      - safe_vision  
+
+  safe_vision:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - "5000:5000"
     restart: unless-stopped
-    # Se for usar câmera no Linux
-    devices:
-      - "/dev/video0:/dev/video0"
