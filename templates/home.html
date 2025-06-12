@@ -1,27 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
-  <title>Transmissão ao Vivo</title>
+  <title>Notificações com WebSocket</title>
   <style>
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      background-color: #121212;
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-    img {
-      max-width: 100%;
-      height: auto;
-      border: 5px solid #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+    }
+
+    .card {
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-left: 5px solid #007BFF;
     }
   </style>
 </head>
+
 <body>
-  <img src="http://localhost:8081/stream" alt="Transmissão ao Vivo">
+  <h1>Exemplo de Notificação com WebSocket</h1>
+
+  <div class="card-container" id="mensagens"></div>
+
+  <script>
+    if ("Notification" in window) {
+      Notification.requestPermission().then(permission => {
+        if (permission !== "granted") {
+          alert("Permissão para notificações negada.");
+        }
+      });
+    }
+
+    const socket = new WebSocket("ws://localhost:3000");
+    socket.onopen = () => {
+      console.log("Conexão WebSocket aberta");
+    };
+
+    socket.onmessage = (event) => {
+      const data = event.data;
+      console.log("Mensagem recebida:", data);
+
+      if (Notification.permission === "granted") {
+        new Notification("Nova Mensagem", {
+          body: data,
+          icon: "https://example.com/icon.png"
+        });
+      }
+
+
+      const container = document.getElementById("mensagens");
+      const card = document.createElement("div");
+      card.className = "card";
+      card.textContent = data;
+      container.prepend(card);
+    };
+
+    socket.onerror = (error) => {
+      console.error("Erro WebSocket:", error);
+    };
+  </script>
 </body>
+
 </html>
