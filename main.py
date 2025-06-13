@@ -41,4 +41,4 @@ if __name__ == "__main__":
     ws_thread.start()
 
     print("Iniciando servidor Flask...")
-    app.run(debug=True, host="0.0.0.0", port=5001)
+    app.run(debug=True, host="0.0.0.0", port=5000)
