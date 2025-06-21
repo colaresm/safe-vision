@@ -1,7 +1,7 @@
 import cv2
 import time
 
-video = cv2.VideoCapture("../static/video.mp4")
+video = cv2.VideoCapture("static/video.mp4")
 def generate_frames():
     global video
     while True:

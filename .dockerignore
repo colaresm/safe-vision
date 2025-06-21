@@ -1,1 +1,5 @@
 README.MD
+__pycache__/
+.vscode/
+.dockerignore
+.gitignore
