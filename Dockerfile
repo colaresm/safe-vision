@@ -1,12 +1,21 @@
-FROM python:3.10-slim
+FROM python:3.11-alpine AS builder
 
-WORKDIR /safevisionapp
+WORKDIR /usr/src/app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN apk add --no-cache build-base
 
-COPY . /safevisionapp
+COPY requirements.txt ./
+RUN pip install --prefix=/install -r requirements.txt
+
+FROM python:3.11-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=builder /install /usr/local
+
+COPY . .
 
 EXPOSE 5000
+EXPOSE 8765 
 
 CMD ["python", "main.py"]

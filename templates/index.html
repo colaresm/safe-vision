@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket com Flask</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Teste WebSocket</h1>
+    <input id="msg" placeholder="Digite uma mensagem...">
+    <button onclick="enviar()">Enviar</button>
+
+    <ul id="chat"></ul>
+
+    <script>
+        var socket = io('http://localhost:5000');
+
+        socket.on('connect', () => {
+            console.log('Conectado');
+        });
+
+        socket.on('message', function(msg){
+            let li = document.createElement("li");
+            li.textContent = msg;
+            document.getElementById("chat").appendChild(li);
+        });
+
+        function enviar() {
+            let texto = document.getElementById("msg").value;
+            socket.send(texto);
+        }
+    </script>
+</body>
+</html>
