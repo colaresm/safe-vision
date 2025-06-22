@@ -19,13 +19,13 @@ def iou(box1, box2):
 
     return interArea / float(box1Area + box2Area - interArea)
 
-detect_ppe_model = YOLO('models/ppi_detecction.pt')
+detect_ppe_model = YOLO('models/ppe_detection.pt')
 base_model = YOLO('models/yolov8n.pt')
 
-source_path = 'tests/test.jpg'
+source_path = 'tests/image (1).png'
 
-results_ppe = detect_ppe_model(source_path)
-results_base = base_model(source_path)
+results_ppe = detect_ppe_model(source_path,conf=0.7)
+results_base = base_model(source_path,conf=0.7)
 
 ppe_boxes = []
 for r_ppe in results_ppe:
@@ -58,8 +58,8 @@ for r in results_base:
                 color = (0, 0, 255)   
 
             cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
-            cv2.putText(image, label, (x1 + 20, y2),
-                        cv2.FONT_HERSHEY_SIMPLEX, 3, color, 3)
+            cv2.putText(image, label, (x1 + 20, y2-20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 1, color, 3)
 
 image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 plt.imshow(image_rgb)
