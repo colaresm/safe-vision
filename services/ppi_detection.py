@@ -52,5 +52,5 @@ def detect_ppe(frame, results_base, results_ppe, base_model):
 
     return frame, has_notification(label)
 
-def has_notification(detecction):
-    return detecction == "Without PPE"
+def has_notification(detection):
+    return detection == "Without PPE"
