@@ -29,7 +29,9 @@ def generate_frames():
         
         if has_notification:
             count+=1        
-        
+        else:
+            count=0
+            
         if has_notification and count>5:
             count=0
             asyncio.run(server.broadcast_to_all( "Ausência EPI detectada!"))

@@ -1,8 +1,8 @@
 # Safe Vision
 
-This project is a real-time monitoring web application designed to detect whether workers on a construction site are wearing the required Personal Protective Equipment (PPE). The system uses a simulated video stream and processes each frame in real time using a YOLO-based object detection model.
+This project is a real-time monitoring web application designed to detect whether workers on a construction site are wearing the required Personal Protective Equipment (PPE). The system uses a simulated video stream and processes each frame in real time using a YOLO-based object detection model. Notifications are sent to the web interface using a websocket when 5 consecutive frames are detected with the absence of a PPE.
 
-The interface displays the video feed and highlights detected individuals with bounding boxes. Workers who are properly wearing safety gear such as helmets, vests, and gloves are marked with green bounding boxes. Those who are missing any required equipment are marked with red bounding boxes.
+The interface displays the video feed and highlights detected individuals with bounding boxes. Workers who are properly wearing safety gear such as helmets, vests, and gloves are marked with green bounding boxes. Those who are missing any required equipment are marked with red bounding boxes. 
 
 The goal of this project is to enhance workplace safety by providing an automated, vision-based surveillance tool that helps ensure compliance with safety protocols.
 
@@ -28,3 +28,15 @@ docker-compose logs -f
 ```
 docker-compose up --build --force-recreate
 ```
+
+# Contributing
+
+1. Fork the repository.
+2. Create a branch for your changes (`git checkout -b feature/new-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/new-feature`).
+5. Open a pull request.
+
+# Contact
+
+- **LinkedIn**: [engmarcelocolares](https://www.linkedin.com/in/engmarcelocolares/)
