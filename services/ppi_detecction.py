@@ -50,4 +50,7 @@ def detect_ppe(frame, results_base, results_ppe, base_model):
                 cv2.putText(frame, label, (x1 + 20, y2),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
-    return frame
+    return frame, has_notification(label)
+
+def has_notification(detecction):
+    return detecction == "Without PPE"

@@ -2,6 +2,10 @@ from ultralytics import YOLO
 import cv2
 import time
 from services.ppi_detecction import detect_ppe
+from ws import server
+import asyncio
+from flask import request
+
 
 model = YOLO('models/yolov8n.pt')
 video = cv2.VideoCapture("static/video.mp4")
@@ -20,8 +24,11 @@ def generate_frames():
         results_base = base_model(frame)
         results_ppe = ppe_model(frame)
 
-        annotated_frame = detect_ppe(frame, results_base, results_ppe, base_model)
+        annotated_frame, has_notification = detect_ppe(frame, results_base, results_ppe, base_model)
 
+        if has_notification:
+            asyncio.run(server.broadcast_to_all( "Ausência EPI detectada!"))
+        
         ret, buffer = cv2.imencode('.jpg', annotated_frame)
         if not ret:
             continue
