@@ -1,5 +1,5 @@
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, render_template
 import asyncio
 from ws import server
 from flask import Response
@@ -17,6 +17,10 @@ def video_feed():
     return Response(stream.generate_frames(),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
+@routes.route('/healthy')
+def healthy():
+    return jsonify({"message": "is healthy"})
+
 @routes.route('/home')
 def home():
-    return jsonify({"message": "hello world."})
+    return render_template('index.html')

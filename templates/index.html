@@ -1,33 +1,97 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>WebSocket com Flask</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Stream de Vídeo</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('static/bg.png');  
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .video-area {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-area img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 4px solid #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar {
+            width: 300px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            overflow-y: auto;
+            border-left: 2px solid #ccc;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #333;
+        }
+
+        .message {
+            background-color: #f1f1f1;
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 14px;
+            color: #000;
+        }
+    </style>
 </head>
 <body>
-    <h1>Teste WebSocket</h1>
-    <input id="msg" placeholder="Digite uma mensagem...">
-    <button onclick="enviar()">Enviar</button>
-
-    <ul id="chat"></ul>
+    <div class="container">
+        <div class="video-area">
+            <img src="http://localhost:5000/video_feed" alt="Stream de vídeo ao vivo">
+        </div>
+        <div class="sidebar" id="sidebar">
+            <h2>Notificações</h2>
+            <div id="messages"></div>
+        </div>
+    </div>
 
     <script>
-        var socket = io('http://localhost:5000');
+        const ws = new WebSocket("ws://localhost:8765");
 
-        socket.on('connect', () => {
-            console.log('Conectado');
-        });
+        ws.onmessage = function(event) {
+            const messagesDiv = document.getElementById("messages");
+            const message = document.createElement("div");
+            message.className = "message";
+            message.textContent = event.data;
+            messagesDiv.appendChild(message);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        };
 
-        socket.on('message', function(msg){
-            let li = document.createElement("li");
-            li.textContent = msg;
-            document.getElementById("chat").appendChild(li);
-        });
-
-        function enviar() {
-            let texto = document.getElementById("msg").value;
-            socket.send(texto);
-        }
+        ws.onerror = function(error) {
+            console.error("WebSocket error:", error);
+        };
     </script>
 </body>
 </html>
