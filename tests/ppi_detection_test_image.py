@@ -22,10 +22,10 @@ def iou(box1, box2):
 detect_ppe_model = YOLO('models/ppe_detection.pt')
 base_model = YOLO('models/yolov8n.pt')
 
-source_path = 'tests/image (1).png'
+source_path = 'tests/image (9).png'
 
-results_ppe = detect_ppe_model(source_path,conf=0.7)
-results_base = base_model(source_path,conf=0.7)
+results_ppe = detect_ppe_model(source_path,conf=0.8)
+results_base = base_model(source_path,conf=0.8)
 
 ppe_boxes = []
 for r_ppe in results_ppe:

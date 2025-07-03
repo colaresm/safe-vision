@@ -2,11 +2,11 @@ from ultralytics import YOLO
 import cv2
 
 modelo_path = 'models/ppe_detection.pt'
-imagem_path = 'tests/image (2).png'
+imagem_path = 'tests/image (3).png'
 
 
 modelo = YOLO(modelo_path)
-resultados = modelo(imagem_path,conf=0.7)
+resultados = modelo(imagem_path,conf=0.85)
 
 imagem = cv2.imread(imagem_path)
 for r in resultados:

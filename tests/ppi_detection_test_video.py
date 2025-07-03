@@ -22,7 +22,7 @@ def iou(box1, box2):
 detect_ppe_model = YOLO('models/ppi_detecction.pt')
 base_model = YOLO('models/yolov8n.pt')
 
-video_path = 'static/video.mp4'
+video_path = 'static/movie2.mp4'
 cap = cv2.VideoCapture(video_path)
 
 while cap.isOpened():

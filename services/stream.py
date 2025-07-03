@@ -8,14 +8,14 @@ from flask import request
 
 
 model = YOLO('models/yolov8n.pt')
-video = cv2.VideoCapture("static/video.mp4")
+video = cv2.VideoCapture("static/movie2.mp4")
 
 base_model = YOLO('models/yolov8n.pt')
 ppe_model = YOLO('models/ppe_detection.pt')   
 
 def generate_frames():
     global video
-    count = 0
+
     while True:
         success, frame = video.read()
         if not success:
@@ -26,14 +26,8 @@ def generate_frames():
         results_ppe = ppe_model(frame)
 
         annotated_frame, has_notification = detect_ppe(frame, results_base, results_ppe, base_model)
-        
+        print(has_notification)
         if has_notification:
-            count+=1        
-        else:
-            count=0
-            
-        if has_notification and count>5:
-            count=0
             asyncio.run(server.broadcast_to_all( "Ausência EPI detectada!"))
         
         ret, buffer = cv2.imencode('.jpg', annotated_frame)
