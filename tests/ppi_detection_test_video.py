@@ -19,18 +19,16 @@ def iou(box1, box2):
 
     return interArea / float(box1Area + box2Area - interArea)
 
-detect_ppe_model = YOLO('models/ppi_detecction.pt')
+detect_ppe_model = YOLO('models/ppe_detection.pt')
 base_model = YOLO('models/yolov8n.pt')
 
-video_path = 'static/movie2.mp4'
+video_path = 'static/ss.mp4'
 cap = cv2.VideoCapture(video_path)
 
 while cap.isOpened():
     ret, frame = cap.read()
     if not ret:
         break
-
-    # Salva temporariamente o frame para enviar ao modelo
     temp_frame_path = "temp.jpg"
     cv2.imwrite(temp_frame_path, frame)
 

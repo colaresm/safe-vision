@@ -28,7 +28,7 @@ def generate_frames():
         annotated_frame, has_notification = detect_ppe(frame, results_base, results_ppe, base_model)
         print(has_notification)
         if has_notification:
-            asyncio.run(server.broadcast_to_all( "Ausência EPI detectada!"))
+            asyncio.run(server.broadcast_to_all("Ausência EPI detectada"))
         
         ret, buffer = cv2.imencode('.jpg', annotated_frame)
         if not ret:

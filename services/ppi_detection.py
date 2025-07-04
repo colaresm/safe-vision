@@ -19,6 +19,7 @@ def iou(box1, box2):
 
 def detect_ppe(frame, results_base, results_ppe, base_model):
     ppe_boxes = []
+    absences = 0
     for r_ppe in results_ppe:
         for box in r_ppe.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0])
@@ -45,12 +46,10 @@ def detect_ppe(frame, results_base, results_ppe, base_model):
                 else:
                     label = 'Without PPE'
                     color = (0, 0, 255)
+                    absences +=1
 
                 cv2.rectangle(frame, (x1, y1), (x2, y2), color, 2)
                 cv2.putText(frame, label, (x1 + 20, y2),
                             cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
 
-    return frame, has_notification(label)
-
-def has_notification(detection):
-    return detection == "Without PPE"
+    return frame, absences>0

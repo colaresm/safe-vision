@@ -6,6 +6,10 @@ The interface displays the video feed and highlights detected individuals with b
 
 The goal of this project is to enhance workplace safety by providing an automated, vision-based surveillance tool that helps ensure compliance with safety protocols.
 
+![DEMO](static/home.png)
+
+
+
 # Get Started 🚀
 * This project is dockerized, so make sure you have Docker installed on your computer.
 
