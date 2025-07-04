@@ -36,7 +36,7 @@ docker-compose logs -f
 ```
 docker-compose up --build --force-recreate
 ```
-Initially, the ``.mp4`` file that is in the static folder is transmitted by a stream simulator that is exposed on the ``/stream`` port. The detection results are presented in the ``/home`` route.
+Initially, the ``.mp4`` file that is in the static folder is transmitted by a stream simulator that is exposed on the ``http://localhost:5000/home`` port. The detection results are presented in the ``http://localhost:5000/home`` route.
 
 
 # Contributing
