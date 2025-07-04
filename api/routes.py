@@ -6,7 +6,7 @@ from flask import Response
 from services import stream
 
 routes = Blueprint('routes', __name__)
-@routes.route("/send", methods=["GET"])
+@routes.route("/send-test", methods=["GET"])
 def send_message():
     msg = request.args.get("msg", "Hello from the Flask server!")
     asyncio.run(server.broadcast_to_all(msg))

@@ -22,8 +22,8 @@ def generate_frames():
             video.set(cv2.CAP_PROP_POS_FRAMES, 0)
             continue
 
-        results_base = base_model(frame)
-        results_ppe = ppe_model(frame)
+        results_base = base_model(frame,conf=0.8)
+        results_ppe = ppe_model(frame,conf=0.8)
 
         annotated_frame, has_notification = detect_ppe(frame, results_base, results_ppe, base_model)
         print(has_notification)
