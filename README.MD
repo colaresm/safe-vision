@@ -8,6 +8,10 @@ The goal of this project is to enhance workplace safety by providing an automate
 
 ![DEMO](static/home.png)
 
+# About model
+O modelo utilizado nesse projeto foi uma YOLOv8, tendo como base de treinamento o conjunto [PPE detection
+](https://www.kaggle.com/datasets/mustafatayyipbayram/ppe-detection).
+
 
 
 # Get Started 🚀
@@ -32,6 +36,8 @@ docker-compose logs -f
 ```
 docker-compose up --build --force-recreate
 ```
+Initially, the ``.mp4`` file that is in the static folder is transmitted by a stream simulator that is exposed on the ``/stream`` port. The detection results are presented in the ``/home`` route.
+
 
 # Contributing
 
